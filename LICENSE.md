@@ -16,21 +16,24 @@ Include Repository Link: Provide a link to this GitHub repository: [YOUR GITHUB 
 Include This License: Include a copy of this license with any distributed versions
 
 Credit Examples:
-For distribution:
+For distribution (of EXE):
 Created by Turn To Jesus (@texan789)
 Discord: https://discord.gg/cybz3FDNfX
 Source: https://github.com/Real-TurnToJesus/PyMod
-For videos/content:
+
+For videos/content (EXE and metadata):
 Include in the video description or credits:
 Made by Turn To Jesus
 GitHub: https://github.com/Real-TurnToJesus/PyMod
 Discord: https://discord.gg/cybz3FDNfX
 Restrictions
-You MAY NOT:
 
+You MAY NOT:
+Be banned from the Discord server
 View, access, or read the source code (beyond what is necessary for running the software)
 Modify, decompile, reverse engineer, or create derivative works from the software
 Distribute or share the source code
+Distribute or share metadatas made by this
 Remove or alter copyright notices, attributions, or this license
 Misrepresent the origin of the software or claim it as your own work
 
