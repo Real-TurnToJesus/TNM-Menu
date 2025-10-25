@@ -4,7 +4,7 @@ TNM Menu is a useful tool made with Python that automatically makes metadata mod
 
 ## FOR EVERY FEATURE SHOWN WITHOUT CONTEXT (e.g. "Infection Stuff"), PLEASE REFER TO THE DISCORD FOR MORE INFO
 
-- METADATA CREDITS -
+## =METADATA CREDITS=
 
 TTJ (made the metadata)
 CHIP (made the 32-bit version and the no slingshot method)
