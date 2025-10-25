@@ -11,3 +11,4 @@ CHIP (made the 32-bit version and the no slingshot method)
 BOWTIE AND TOXXIN (helped me with the OS in the menu)
 PL1T (made the queue methods)
 LEO (made this method and the hoverboard method and the ball method)
+ 
