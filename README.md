@@ -10,8 +10,6 @@ TNM Menu is a useful tool made with Python that automatically makes metadata mod
 
 - purple MOTD
 
-- Custom OS
-
 - Custom Leaderboard
 
 - Metadata queue
@@ -19,8 +17,6 @@ TNM Menu is a useful tool made with Python that automatically makes metadata mod
 - Custom Platform
 
 - Custom Camera Text
-
-- All Codes Right
 
 - Everything is buyable
 
@@ -58,6 +54,7 @@ TNM Menu is a useful tool made with Python that automatically makes metadata mod
 
 - no fog
 
+^ i may forget to update that often
 
 ## FOR EVERY FEATURE SHOWN WITHOUT CONTEXT (e.g. "Infection Stuff"), PLEASE REFER TO THE DISCORD FOR MORE INFO
 
