@@ -1,6 +1,6 @@
 # Quantum Menu
 # DELETE THE DO NOT DELETE FOLDER AS SOON GORILLA TAG UPDATES
-Quantum Menu is a useful tool made with Python that automatically makes metadata mods for Gorilla Tag, and acts as a MOD MENU! Join the Discord: https://discord.gg/cybz3FDNfX
+Quantum Menu is a useful tool made with Python that automatically makes metadata mods for Gorilla Tag, it's like basically a patcher/adb terminal compiled into a mod menu style. Join the Discord: https://discord.gg/cybz3FDNfX
 
 ## MODLIST
 
