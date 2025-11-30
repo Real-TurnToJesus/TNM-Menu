@@ -1,6 +1,6 @@
-# TNM MENU
+# Quantum MENU
 # DELETE THE DO NOT DELETE FOLDER AS SOON GORILLA TAG UPDATES
-TNM Menu is a useful tool made with Python that automatically makes metadata mods for Gorilla Tag, and acts as a MOD MENU! Join the Discord: https://discord.gg/cybz3FDNfX
+Quantum Menu is a useful tool made with Python that automatically makes metadata mods for Gorilla Tag, and acts as a MOD MENU! Join the Discord: https://discord.gg/cybz3FDNfX
 
 ## MODLIST
 
