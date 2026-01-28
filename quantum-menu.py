@@ -29,7 +29,7 @@ try:
     time.sleep(2)
 except Exception:
     print("[ADB] Warning: Failed to start ADB server")
-    messagebox.showwarning("Warning", "Failed to start ADB! You can ignore this if you are just making a metadata. Otherwise run run_daemon.bat.")
+    messagebox.showwarning("Warning", "Failed to start ADB! You can ignore this if you are just making a metadata. Otherwise run run_adb.bat.")
     pass
 
 if not os.path.exists(local_file):
