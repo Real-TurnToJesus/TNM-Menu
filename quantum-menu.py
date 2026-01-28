@@ -86,12 +86,12 @@ def update_json(data):
 if not os.path.exists('settings.json'):
     print("[Settings] Creating new settings file...")
     data = {
-        "tutorial_spawn_for_every_patch_with_infection_mods": False,
+        "tutorial_spawn": False,
         "headset_ip": None,
         "gtag_version": None,
         "custom_methods_enabled": False,
-        "punish_mod_checkers": False,
-        "methods": {
+        "break_mod_checkers": False,
+        "custom_methods": {
             "example1original": "example1new",
             "example2original": "example2new"
         }
@@ -110,11 +110,11 @@ print("[Settings] Loaded settings from file")
 discord = "https://discord.gg/cybz3FDNfX"
 headset_ip = settings.get('headset_ip')
 custom_methods_enabled = settings.get('custom_methods_enabled')
-do_tutorial = settings.get('tutorial_spawn_for_every_patch_with_infection_mods')
-punish_mod_checkers = settings.get('punish_mod_checkers', False)
+tutorial_spawn = settings.get('tutorial_spawn')
+break_mod_checkers = settings.get('break_mod_checkers', False)
 stored_version = settings.get('gtag_version')
 if custom_methods_enabled:
-    custom_methods = settings.get('methods')
+    custom_methods = settings.get('custom_methods')
 
 if not connect_headset(headset_ip):
     messagebox.showwarning("Warning", "No VR headset found! Please plug in your headset or setup the wireless feature,"
@@ -411,8 +411,8 @@ class Metadata:
             'WaterRippleEffect': '_'
         }
 
-        self.all_infection_stuff = {
-            'didTutorial': ("<size=100><color=red>#####################################################################" if punish_mod_checkers else "<size=65><color=white>No mods detected]<size=0>") + (''.join(random.choice(string.ascii_letters+string.digits+string.punctuation) for _ in range(random.randint(1, 15))) if do_tutorial else "")
+        self.infection_mods = {
+            'didTutorial': ("<size=100><color=red>#####################################################################" if break_mod_checkers else "<size=65><color=white>No mods detected]<size=0>") + (''.join(random.choice(string.ascii_letters+string.digits+string.punctuation) for _ in range(random.randint(1, 15))) if tutorial_spawn else "")
         }
         
         self.monkeblocks_cheats = {
@@ -485,22 +485,22 @@ class Metadata:
 
     def reload_settings(self):
         """Reload settings from file and update relevant attributes"""
-        global do_tutorial, punish_mod_checkers, custom_methods_enabled, custom_methods
+        global tutorial_spawn, break_mod_checkers, custom_methods_enabled, custom_methods
         
         print("[Settings] Reloading settings...")
         settings = load_settings()
-        do_tutorial = settings.get('tutorial_spawn_for_every_patch_with_infection_mods')
-        punish_mod_checkers = settings.get('punish_mod_checkers', False)
+        tutorial_spawn = settings.get('tutorial_spawn')
+        break_mod_checkers = settings.get('break_mod_checkers', False)
         custom_methods_enabled = settings.get('custom_methods_enabled', False)
         
         # Update all_infection_stuff based on new settings
         self.all_infection_stuff = {
-            'didTutorial': ("<size=100><color=red>#####################################################################" if punish_mod_checkers else "<size=65><color=white>No mods detected]<size=0>") + (''.join(random.choice(string.ascii_letters+string.digits+string.punctuation) for _ in range(random.randint(1, 15))) if do_tutorial else "")
+            'didTutorial': ("<size=100><color=red>#####################################################################" if break_mod_checkers else "<size=65><color=white>No mods detected]<size=0>") + (''.join(random.choice(string.ascii_letters+string.digits+string.punctuation) for _ in range(random.randint(1, 15))) if tutorial_spawn else "")
         }
         
         # Update custom methods if enabled
         if custom_methods_enabled:
-            custom_methods = settings.get('methods', {})
+            custom_methods = settings.get('custom_methods', {})
             self.custom_methods = {}
             for original, new in custom_methods.items():
                 self.custom_methods[original] = new
@@ -533,6 +533,9 @@ class Metadata:
             self.to_do.update(self.custom_methods)
     
     def patch(self, export):
+        global errors
+        errors = 0
+
         print("[Patch] Starting metadata patching process...")
         print(f"[Patch] Total methods to apply: {len(self.active_methods)}")
         
@@ -714,7 +717,7 @@ class MetadataGUI:
                 
                 btn = tk.Button(
                     btn_frame,
-                    text="Apply Predictions (50Hz)",
+                    text="Predictions",
                     command=lambda: predics(),
                     bg=self.accent,
                     fg=self.text_color,
@@ -807,7 +810,7 @@ class MetadataGUI:
 
         revert_btn = tk.Button(
             revert_btn_frame,
-            text="Revert",
+            text="Revert Metadata",
             command=revert,
             bg="#ff6b6b",
             fg="white",
@@ -927,10 +930,10 @@ class MetadataGUI:
         tutorial_frame = tk.Frame(scrollable_frame, bg=self.bg_medium)
         tutorial_frame.pack(fill="x", padx=20, pady=(20, 10))
         
-        self.settings_vars['tutorial'] = tk.BooleanVar(value=current_settings.get('tutorial_spawn_for_every_patch_with_infection_mods', False))
+        self.settings_vars['tutorial'] = tk.BooleanVar(value=current_settings.get('tutorial_spawn', False))
         tutorial_check = tk.Checkbutton(
             tutorial_frame,
-            text="Tutorial spawn for every patch with infection mods",
+            text="Tutorial Spawn With Every Patch (requires infection mods)",
             variable=self.settings_vars['tutorial'],
             bg=self.bg_medium,
             fg=self.text_color,
@@ -947,11 +950,11 @@ class MetadataGUI:
         punish_frame = tk.Frame(scrollable_frame, bg=self.bg_medium)
         punish_frame.pack(fill="x", padx=20, pady=10)
         
-        self.settings_vars['punish_mod_checkers'] = tk.BooleanVar(value=current_settings.get('punish_mod_checkers', False))
+        self.settings_vars['break_mod_checkers'] = tk.BooleanVar(value=current_settings.get('break_mod_checkers', False))
         punish_check = tk.Checkbutton(
             punish_frame,
-            text="Punish mod checkers",
-            variable=self.settings_vars['punish_mod_checkers'],
+            text="Break Mod Checkers",
+            variable=self.settings_vars['break_mod_checkers'],
             bg=self.bg_medium,
             fg=self.text_color,
             font=label_font,
@@ -998,7 +1001,7 @@ class MetadataGUI:
         self.settings_vars['custom_methods_enabled'] = tk.BooleanVar(value=current_settings.get('custom_methods_enabled', False))
         custom_methods_check = tk.Checkbutton(
             custom_methods_frame,
-            text="Enable custom methods option (requires restart)",
+            text="Custom Methods Option (requires restart)",
             variable=self.settings_vars['custom_methods_enabled'],
             bg=self.bg_medium,
             fg=self.text_color,
@@ -1029,7 +1032,7 @@ class MetadataGUI:
         self.methods_entries_frame.pack(fill="x", padx=15, pady=(0, 10))
         
         # Load existing custom methods
-        current_methods = current_settings.get('methods', {})
+        current_methods = current_settings.get('custom_methods', {})
         for original, new in current_methods.items():
             self.add_custom_method_row(original, new)
         
@@ -1172,16 +1175,16 @@ class MetadataGUI:
     
     def _save_settings_internal(self, show_message=True):
         """Internal method to save settings"""
-        global headset_ip, custom_methods_enabled, do_tutorial, punish_mod_checkers, custom_methods
+        global headset_ip, custom_methods_enabled, tutorial_spawn, break_mod_checkers, custom_methods
         
         # Build settings dict
         new_settings = {}
         
         # Tutorial setting
-        new_settings['tutorial_spawn_for_every_patch_with_infection_mods'] = self.settings_vars['tutorial'].get()
+        new_settings['tutorial_spawn'] = self.settings_vars['tutorial'].get()
         
         # Punish mod checkers setting
-        new_settings['punish_mod_checkers'] = self.settings_vars['punish_mod_checkers'].get()
+        new_settings['break_mod_checkers'] = self.settings_vars['break_mod_checkers'].get()
         
         # Headset IP
         ip_value = self.settings_vars['headset_ip'].get().strip()
@@ -1198,7 +1201,7 @@ class MetadataGUI:
             if original:  # Only add if original has a value
                 methods_dict[original] = new
         
-        new_settings['methods'] = methods_dict
+        new_settings['custom_methods'] = methods_dict
         
         # Preserve gtag_version
         current_settings = load_settings()
@@ -1210,10 +1213,10 @@ class MetadataGUI:
         # Update global variables
         headset_ip = new_settings['headset_ip']
         custom_methods_enabled = new_settings['custom_methods_enabled']
-        do_tutorial = new_settings['tutorial_spawn_for_every_patch_with_infection_mods']
-        punish_mod_checkers = new_settings['punish_mod_checkers']
+        tutorial_spawn = new_settings['tutorial_spawn']
+        break_mod_checkers = new_settings['break_mod_checkers']
         if custom_methods_enabled:
-            custom_methods = new_settings['methods']
+            custom_methods = new_settings['custom_methods']
         
         # Update metadata object with new settings
         self.metadata.reload_settings()
