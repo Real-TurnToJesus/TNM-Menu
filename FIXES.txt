@@ -1,0 +1,7 @@
+IF IT DOESN'T LOAD: Run 'run_daemon.bat'.
+
+IF YOUR GAME CRASHES: Delete the 'DO NOT DELETE' folder, and reinstall your game. Also, replace the version in settings.json to 'null' and remove the quotations, or just make it null in the menu.
+
+Make sure Gorilla Tag is installed and that you have opened it before.
+
+**ALLOW YOUR PC TO MANAGEBTHE FILES IN YOUR HEADSET!**
