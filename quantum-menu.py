@@ -998,7 +998,7 @@ class MetadataGUI:
         self.settings_vars['custom_methods_enabled'] = tk.BooleanVar(value=current_settings.get('custom_methods_enabled', False))
         custom_methods_check = tk.Checkbutton(
             custom_methods_frame,
-            text="Enable custom methods option",
+            text="Enable custom methods option (requires restart)",
             variable=self.settings_vars['custom_methods_enabled'],
             bg=self.bg_medium,
             fg=self.text_color,
